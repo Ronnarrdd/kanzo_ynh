@@ -3,3 +3,6 @@
 .DS_Store
 INSTRUCTIONS.txt
 AGENTS.md
+.manifest.v2.schema.json
+.spdx_licenses
+.tests.v1.schema.json
