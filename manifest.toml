@@ -7,7 +7,7 @@ name = "Kanzo"
 description.en = "Lightweight self-hosted kanban board with an MCP server for AI agents"
 description.fr = "Kanban auto-hébergé ultra léger avec serveur MCP pour agents IA"
 
-version = "0.4.2~ynh1"
+version = "0.4.2~ynh2"
 
 maintainers = ["Ronnarrdd"]
 
