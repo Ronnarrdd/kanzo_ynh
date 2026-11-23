@@ -1,0 +1,57 @@
+#!/bin/bash
+
+#=================================================
+# IMPORT GENERIC HELPERS
+#=================================================
+
+source _common.sh
+source /usr/share/yunohost/helpers
+
+#=================================================
+# DOWNLOAD, CHECK AND UNPACK SOURCE
+#=================================================
+ynh_script_progression "Setting up source files..."
+
+# Download, check integrity and uncompress the Kanzo binary from manifest.toml
+ynh_setup_source --dest_dir="$install_dir"
+
+chmod +x "$install_dir/kanzo"
+chown -R "$app:www-data" "$install_dir"
+
+#=================================================
+# APP INITIAL CONFIGURATION
+#=================================================
+ynh_script_progression "Adding $app's configuration files..."
+
+ynh_config_add --template="config.toml" --destination="$data_dir/config.toml"
+
+# 600 and not 400: Kanzo may rewrite its own config.toml
+chmod 600 "$data_dir/config.toml"
+chown "$app:$app" "$data_dir/config.toml"
+
+#=================================================
+# SYSTEM CONFIGURATION
+#=================================================
+ynh_script_progression "Adding system configurations related to $app..."
+
+# Create a dedicated NGINX config using the conf/nginx.conf template
+ynh_config_add_nginx
+
+# Create a dedicated systemd config using the conf/systemd.service template
+ynh_config_add_systemd
+
+# Logs go to the journal: `journalctl -u $app`
+yunohost service add "$app" --description="Kanzo kanban board"
+
+#=================================================
+# START SYSTEMD SERVICE
+#=================================================
+ynh_script_progression "Starting $app's systemd service..."
+
+ynh_systemctl --service="$app" --action="start"
+
+#=================================================
+# END OF SCRIPT
+#=================================================
+
+ynh_script_progression "Installation of $app completed"

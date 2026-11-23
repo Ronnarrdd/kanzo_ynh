@@ -1,0 +1,75 @@
+#:schema https://raw.githubusercontent.com/YunoHost/apps/main/schemas/manifest.v2.schema.json
+
+packaging_format = 2
+
+id = "kanzo"
+name = "Kanzo"
+description.en = "Lightweight self-hosted kanban board with an MCP server for AI agents"
+description.fr = "Kanban auto-hébergé ultra léger avec serveur MCP pour agents IA"
+
+version = "0.4.2~ynh1"
+
+maintainers = ["Ronnarrdd"]
+
+[upstream]
+license = "AGPL-3.0-only"
+website = "https://github.com/emanuele-em/kanzo"
+code = "https://github.com/emanuele-em/kanzo"
+
+[integration]
+yunohost = ">= 12.1.17"
+helpers_version = "2.1"
+architectures = ["amd64", "arm64", "armhf"]
+multi_instance = true
+
+# Kanzo has no user accounts at all: nothing to log in to, nothing to auto-login.
+ldap = "not_relevant"
+sso = "not_relevant"
+
+disk = "50M"
+ram.build = "50M"
+ram.runtime = "50M"
+
+[install]
+    [install.domain]
+    # No "path" question on purpose: Kanzo does not document a URL prefix,
+    # so it is installed at the root of a dedicated (sub)domain.
+    type = "domain"
+
+    [install.init_main_permission]
+    # Kanzo has NO authentication: the YunoHost SSO is the only protection.
+    # Never default to "visitors".
+    type = "group"
+    default = "all_users"
+
+[resources]
+
+    [resources.sources]
+
+    [resources.sources.main]
+    amd64.url = "https://github.com/emanuele-em/kanzo/releases/download/v0.4.2/kanzo-x86_64-unknown-linux-musl.tar.xz"
+    amd64.sha256 = "146c24e93c943158fae8fe35f070f49414a1f4754832312361dba895d3cbefea"
+    arm64.url = "https://github.com/emanuele-em/kanzo/releases/download/v0.4.2/kanzo-aarch64-unknown-linux-musl.tar.xz"
+    arm64.sha256 = "80eda8efc44b4a393d210cc10cd2feb2608e32098b3ee9425d50fe60b7a97a43"
+    armhf.url = "https://github.com/emanuele-em/kanzo/releases/download/v0.4.2/kanzo-armv7-unknown-linux-musleabihf.tar.xz"
+    armhf.sha256 = "f5c34c31bd68032de817914b60ee38a57aa3fcbefbbcf88b2f660a566ee551cb"
+
+    format = "tar.xz"
+    extract = true
+    in_subdir = true
+
+    autoupdate.strategy = "latest_github_release"
+    autoupdate.asset.amd64 = "^kanzo-x86_64-unknown-linux-musl\\.tar\\.xz$"
+    autoupdate.asset.arm64 = "^kanzo-aarch64-unknown-linux-musl\\.tar\\.xz$"
+    autoupdate.asset.armhf = "^kanzo-armv7-unknown-linux-musleabihf\\.tar\\.xz$"
+
+    [resources.system_user]
+
+    [resources.install_dir]
+
+    [resources.data_dir]
+
+    [resources.permissions]
+    main.url = "/"
+
+    [resources.ports]
