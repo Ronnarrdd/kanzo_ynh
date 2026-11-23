@@ -1,3 +1,2 @@
 port = __PORT__
 listen = "127.0.0.1"
-hosts = ["__DOMAIN__"]

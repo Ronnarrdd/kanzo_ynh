@@ -25,17 +25,6 @@ ynh_script_progression "Updating NGINX web server configuration..."
 ynh_config_change_url_nginx
 
 #=================================================
-# SPECIFIC MODIFICATIONS
-#=================================================
-ynh_script_progression "Updating $app's configuration files..."
-
-# config.toml holds the served host name
-ynh_config_add --template="config.toml" --destination="$data_dir/config.toml"
-
-chmod 600 "$data_dir/config.toml"
-chown "$app:$app" "$data_dir/config.toml"
-
-#=================================================
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
