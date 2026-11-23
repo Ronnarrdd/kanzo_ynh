@@ -13,7 +13,6 @@ maintainers = ["Ronnarrdd"]
 
 [upstream]
 license = "AGPL-3.0-only"
-website = "https://github.com/emanuele-em/kanzo"
 code = "https://github.com/emanuele-em/kanzo"
 
 [integration]
