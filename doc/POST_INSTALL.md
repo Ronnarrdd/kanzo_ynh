@@ -1,3 +1,3 @@
 Kanzo is available at <https://__DOMAIN__>.
 
-Kanzo has no login of its own. Access is controlled by the YunoHost permission, which is set to all YunoHost users. Check Users > Groups and permissions if you want to restrict it.
+Every YunoHost user can use it. To change who has access, go to Users > Groups and permissions.
