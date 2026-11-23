@@ -13,6 +13,11 @@ RestartSec=5
 
 ### Depending on specificities of your service/app, you may need to tweak these
 ### .. but this should be a good baseline
+# Kanzo only talks to the local proxy: even if it were told to listen on the
+# network or to forward requests elsewhere, the kernel would drop that traffic.
+IPAddressDeny=any
+IPAddressAllow=localhost
+
 # Sandboxing options to harden security
 # Details for these options: https://www.freedesktop.org/software/systemd/man/systemd.exec.html
 NoNewPrivileges=yes
